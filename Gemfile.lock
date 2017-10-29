@@ -5,6 +5,7 @@ PATH
       actionmailer (>= 3, < 6)
       nokogiri (~> 1.6)
       premailer-rails (~> 1.9)
+      rails (>= 3, < 6)
 
 GEM
   remote: https://rubygems.org/
@@ -75,7 +76,6 @@ GEM
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    gem_reloader (0.0.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     htmlentities (4.3.4)
@@ -201,9 +201,9 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  gem_reloader
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  premailer-rails
   puma (~> 3.7)
   rails (~> 5.1.1)
   sass-rails (~> 5.0)

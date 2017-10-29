@@ -62,7 +62,4 @@ Rails.application.configure do
     authentication: :cram_md5
   }
 
-  GemReloader.watch_all!
-  GemReloader.watch 'bootstrap-email'
-
 end
