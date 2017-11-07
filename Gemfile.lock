@@ -1,7 +1,7 @@
 PATH
   remote: ../bootstrap-email
   specs:
-    bootstrap-email (0.0.0.alpha.1)
+    bootstrap-email (0.0.0.alpha.3)
       actionmailer (>= 3, < 6)
       nokogiri (~> 1.6)
       premailer-rails (~> 1.9)

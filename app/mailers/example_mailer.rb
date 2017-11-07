@@ -1,5 +1,3 @@
-require 'bootstrap-email'
-
 class ExampleMailer < ApplicationMailer
 
   def show
