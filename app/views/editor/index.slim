@@ -13,7 +13,7 @@ html
         height: 100%;
       }
 
-      iframe, #responseCodeMirror {
+      #iframe, #responseCodeMirror {
         height: calc(100% - 54px);
       }
 
@@ -21,7 +21,7 @@ html
         font-size: 14px !important;
       }
 
-      iframe {
+      #iframe {
         border: 0;
         display: block;
       }
@@ -50,6 +50,8 @@ html
               |      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
               ="\n"
               |      #{stylesheet_link_tag "application-mailer", media: "all"}
+              ="\n"
+              |     <style><!-- Add custom styles that you want inlined here --></style>
               ="\n"
               |    </head>
               ="\n"
