@@ -1,0 +1,57 @@
+doctype html
+html
+  head
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    css:
+      .col-6, iframe, .CodeMirror {
+        height: calc(100vh - 100px);
+      }
+
+      iframe {
+        border: 0;
+      }
+
+      #render {
+
+      }
+  body
+    .row.no-gutters
+      .col-6
+        =form_tag('/', method: :post)
+          button id="render" class="btn" type="submit" Render
+          textarea#insertCodeMirror.d-none name="markup"
+            -if params[:markup].present?
+              =params[:markup]
+            -else
+              |<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+              |  <html>
+              |    <head>
+              |      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+              |      #{stylesheet_link_tag "application-mailer", media: "all"}
+              |    </head>
+              |    <body class="bg-light">
+              =render file: 'example_mailer/show'
+              |  </body>
+              |</html>
+      .col-6
+        -if @html
+          #hiddenContent.d-none
+            =@html.html_part.body.raw_source.html_safe
+          iframe#iframe style="width:100%;"
+    script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"
+    script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"
+    javascript:
+      $(function(){
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('insertCodeMirror'), {
+          lineNumbers: true,
+          mode: "htmlmixed",
+          theme: 'monokai'
+        });
+        var iframe = document.getElementById('iframe'),
+        iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+
+        iframedoc.body.innerHTML = $('#hiddenContent').html();
+      });
