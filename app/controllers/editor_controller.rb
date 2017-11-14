@@ -8,5 +8,6 @@ class EditorController < ApplicationController
       # byebug
       @html = EditorMailer.show(params[:markup])
     end
+    response.headers.delete "X-Frame-Options"
   end
 end
