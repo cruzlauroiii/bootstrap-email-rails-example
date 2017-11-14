@@ -1,5 +1,6 @@
-PATH
-  remote: ../bootstrap-email
+GIT
+  remote: https://github.com/stuyam/bootstrap-email.git
+  revision: 42dee35facbfe2cd5f034eb1e32e076f9e0ade40
   specs:
     bootstrap-email (0.0.0.alpha.5)
       actionmailer (>= 3, < 6)
