@@ -2,44 +2,88 @@ doctype html
 html
   head
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"
-    = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag "application"
+    = stylesheet_link_tag "application", media: "all"
     css:
-      .col-6, iframe, .CodeMirror {
-        height: calc(100vh - 100px);
+      .full-height {
+        height: calc(100vh);
+      }
+
+      .CodeMirror {
+        height: 100%;
+      }
+
+      iframe, #responseCodeMirror {
+        height: calc(100% - 54px);
+      }
+
+      .CodeMirror {
+        font-size: 14px !important;
       }
 
       iframe {
         border: 0;
+        display: block;
       }
 
-      #render {
+      #responseCodeMirror {
+        display: none;
+      }
 
+      .btn-success {
+        background-color: #13bf11;
       }
   body
-    .row.no-gutters
-      .col-6
-        =form_tag('/', method: :post)
-          button id="render" class="btn" type="submit" Render
+    =form_tag('/', method: :post)
+      .row.no-gutters
+        .col-6.full-height
           textarea#insertCodeMirror.d-none name="markup"
             -if params[:markup].present?
               =params[:markup]
             -else
               |<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+              ="\n"
               |  <html>
+              ="\n"
               |    <head>
+              ="\n"
               |      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+              ="\n"
               |      #{stylesheet_link_tag "application-mailer", media: "all"}
+              ="\n"
               |    </head>
+              ="\n"
+              |   <!-- Edit the code below this line -->
+              ="\n"
               |    <body class="bg-light">
+              ="\n"
               =render file: 'example_mailer/show'
+              ="\n"
               |  </body>
+              ="\n"
               |</html>
-      .col-6
-        -if @html
-          #hiddenContent.d-none
-            =@html.html_part.body.raw_source.html_safe
-          iframe#iframe style="width:100%;"
+        .col-6.full-height
+          .row.no-gutters style="background-color: #272823;"
+            .col-3
+              button.btn.btn-success.badge-pill.mt-2.ml-2 type="submit" Rerender
+            .col-6
+              .d-table.position-relative.mx-auto style="margin-top: 10px;"
+                div.float-left.text-white style="margin-top: 4px;margin-right: 10px;" Code
+                input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked=true
+                label.float-left style="width: 75px" for="checkbox1" class="checkbox-label"
+                div.float-left.text-white style="margin-top: 4px;margin-left: 10px;" Preview
+            .col-3
+          -if @html.nil?
+            -@starting_string = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' + (stylesheet_link_tag "application-mailer", media: "all") + '</head><!-- Edit the code below this line --><body class="bg-light">' + (render file: 'example_mailer/show') + '</body></html>'
+            -@html = EditorMailer.show(@starting_string)
+          -if @html
+            #hiddenContent.d-none
+              <style>body {margin: 0 !important;}</style>
+              =@html.html_part.body.raw_source.html_safe
+            iframe#iframe style="width:100%;"
+            textarea#responseCodeMirror.form-control
+              =@html.html_part.body.raw_source
+
     script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"
     script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"
@@ -48,10 +92,29 @@ html
         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('insertCodeMirror'), {
           lineNumbers: true,
           mode: "htmlmixed",
+          htmlMode: true,
           theme: 'monokai'
         });
+
+        // var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('responseCodeMirror'), {
+        //   lineNumbers: true,
+        //   mode: "htmlmixed",
+        //   htmlMode: true,
+        //   theme: 'monokai'
+        // });
+
         var iframe = document.getElementById('iframe'),
         iframedoc = iframe.contentDocument || iframe.contentWindow.document;
-
+        iframedoc.head.innerHTML = '<style>body {margin: 0 !important;}</style>';
         iframedoc.body.innerHTML = $('#hiddenContent').html();
+
+        $('#checkbox1').change(function() {
+          if(this.checked) {
+            $('#responseCodeMirror').css('display', 'none');
+            $('#iframe').css('display', 'block');
+          } else {
+            $('#responseCodeMirror').css('display', 'block');
+            $('#iframe').css('display', 'none');
+          }
+        });
       });
