@@ -43,21 +43,21 @@ html
             -else
               |<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
               ="\n"
-              |  <html>
+              |<html>
               ="\n"
-              |    <head>
+              |  <head>
               ="\n"
-              |      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+              |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
               ="\n"
-              |      #{stylesheet_link_tag "application-mailer", media: "all"}
+              |    #{stylesheet_link_tag "application-mailer", media: "all"}
               ="\n"
-              |     <style><!-- Add custom styles that you want inlined here --></style>
+              |    <style><!-- Add custom styles that you want inlined here --></style>
               ="\n"
-              |    </head>
+              |  </head>
               ="\n"
-              |   <!-- Edit the code below this line -->
+              |  <!-- Edit the code below this line -->
               ="\n"
-              |    <body class="bg-light">
+              |  <body class="bg-light">
               ="\n"
               =render file: 'example_mailer/show'
               ="\n"
@@ -67,7 +67,7 @@ html
         .col-6.full-height
           .row.no-gutters style="background-color: #272823;"
             .col-3
-              button.btn.btn-success.badge-pill.mt-2.ml-2 type="submit" Rerender
+              button.btn.btn-success.badge-pill.mt-2.ml-2.px-4 type="submit" Rerender
             .col-6
               .d-table.position-relative.mx-auto style="margin-top: 10px;"
                 div.float-left.text-white style="margin-top: 4px;margin-right: 10px;" Code
