@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/stuyam/bootstrap-email.git
-  revision: 42dee35facbfe2cd5f034eb1e32e076f9e0ade40
-  specs:
-    bootstrap-email (0.0.0.alpha.5)
-      actionmailer (>= 3, < 6)
-      nokogiri (~> 1.6)
-      premailer-rails (~> 1.9)
-      rails (>= 3, < 6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,6 +42,11 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     bindex (0.5.0)
+    bootstrap-email (0.2.2)
+      actionmailer (>= 3, < 6)
+      nokogiri (~> 1.6)
+      premailer-rails (~> 1.9)
+      rails (>= 3, < 6)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.15.4)
@@ -106,11 +101,11 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
-    premailer (1.11.0)
+    premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.9.7)
+    premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (3.0.0)
@@ -202,7 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-email!
+  bootstrap-email
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
@@ -222,4 +217,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
